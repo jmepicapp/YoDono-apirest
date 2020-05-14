@@ -18,7 +18,7 @@
         <javax.version>2.1.1</javax.version>
         <mapstruct.version>1.3.1.Final</mapstruct.version>
         <modelmapper.version>2.3.5</modelmapper.version>
-        <oauth.version>2.3.4.RELEASE</oauth.version>
+        <oauth.version>2.3.6.RELEASE</oauth.version>
         <jwt.version>1.0.9.RELEASE</jwt.version>
     </properties>
 
