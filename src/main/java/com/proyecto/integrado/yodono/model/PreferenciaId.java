@@ -10,7 +10,7 @@ public class PreferenciaId implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Column(name = "empresa_id")
-    private Long EmpresaId;
+    private Long empresaId;
 
     @Column(name = "categoria_producto_id")
     private Long categoriaProductoId;
@@ -19,16 +19,16 @@ public class PreferenciaId implements Serializable {
     }
 
     public PreferenciaId(Long empresaId, Long categoriaProductoId) {
-        this.EmpresaId = empresaId;
+        this.empresaId = empresaId;
         this.categoriaProductoId = categoriaProductoId;
     }
 
     public Long getEmpresaId() {
-        return EmpresaId;
+        return empresaId;
     }
 
     public void setEmpresaId(Long Empresa) {
-        this.EmpresaId = Empresa;
+        this.empresaId = Empresa;
     }
 
     public Long getCategoriaProductoId() {
@@ -42,7 +42,7 @@ public class PreferenciaId implements Serializable {
     @Override
     public String toString() {
         return "PreferenciaId{" +
-                "empresa=" + EmpresaId +
+                "empresa=" + empresaId +
                 ", categoriaProducto=" + categoriaProductoId +
                 '}';
     }

@@ -13,11 +13,11 @@ public class Producto implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "nombre")
+    private String nombre;
 
     @Column(name = "cantidad")
-    private String cantidad;
+    private Integer cantidad;
 
     @Column(name = "medida")
     private String medida;
@@ -39,19 +39,19 @@ public class Producto implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getnombre() {
+        return nombre;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setnombre(String nombre) {
+        this.nombre = nombre;
     }
 
-    public String getCantidad() {
+    public Integer getCantidad() {
         return cantidad;
     }
 
-    public void setCantidad(String cantidad) {
+    public void setCantidad(Integer cantidad) {
         this.cantidad = cantidad;
     }
 
@@ -83,7 +83,7 @@ public class Producto implements Serializable {
     public String toString() {
         return "Producto{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", nombre='" + nombre + '\'' +
                 ", cantidad='" + cantidad + '\'' +
                 ", medida='" + medida + '\'' +
                 ", donacion=" + donacion +
