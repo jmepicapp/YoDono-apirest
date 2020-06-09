@@ -33,14 +33,15 @@ public class Donacion implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "donante_id")
-    @JsonIgnoreProperties("donacionesDonantes")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "donacionesDonantes"})
     private Donante donante;
 
     @ManyToOne
     @JoinColumn(name = "empresa_id")
-    @JsonIgnoreProperties("donacionesEmpresas")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "donacionesEmpresas"})
     private Empresa empresa;
 
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @OneToMany(mappedBy = "donacion", cascade = CascadeType.ALL, orphanRemoval = true)
     List<Producto> listaProducto = new ArrayList<>();
 

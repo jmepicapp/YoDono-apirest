@@ -25,9 +25,9 @@ public class Direccion implements Serializable {
     @Column(name = "codigo_postal")
     private Integer codigoPostal;
 
+    @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler", "poblacions"})
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "poblacion_id")
-    @JsonIgnoreProperties("poblacions")
     private Poblacion poblacion;
 
     public Long getId() {

@@ -1,5 +1,7 @@
 package com.proyecto.integrado.yodono.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -22,10 +24,12 @@ public class Producto implements Serializable {
     @Column(name = "medida")
     private String medida;
 
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToOne
     @JoinColumn(name = "donacion_id")
     private Donacion donacion;
 
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToOne
     @JoinColumn(name = "categoria_id")
     private CategoriaProducto categoria;

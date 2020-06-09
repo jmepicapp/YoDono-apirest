@@ -24,7 +24,7 @@ public class Poblacion implements Serializable {
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "provincia_id")
-    @JsonIgnoreProperties("poblacions")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "poblacions"})
     private Provincia provincia;
 
     public Long getId() {

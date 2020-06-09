@@ -23,9 +23,9 @@ public class Provincia implements Serializable {
     @Column(name = "nombre")
     private String nombre;
 
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "comunidadAutonomas"})
     @ManyToOne
     @JoinColumn(name = "comunidad_autonoma_id")
-    @JsonIgnoreProperties("comunidadAutonomas")
     private ComunidadAutonoma comunidad;
 
     public Long getId() {

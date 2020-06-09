@@ -7,6 +7,8 @@ import com.proyecto.integrado.yodono.model.Empresa;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -66,16 +68,17 @@ public class EmpresaController {
     }
 
     /**
-     * {@code GET  /empresas} : get all the empresas.
+     * {@code GET  /empresas/page/:page} : get all the empresas.
      *
      * @param pageable the pagination information.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of empresas in body.
      */
-    @GetMapping("/empresas")
-    public ResponseEntity<List<EmpresaDTO>> getAllEmpresas(Pageable pageable) {
+    @GetMapping("/empresas/page/{page}")
+    public Page<Empresa> getAllEmpresas(@PathVariable Integer page) {
         log.debug("REST request to get a page of empresas");
-        List<EmpresaDTO> list = empresaService.findAll();
-        return ResponseEntity.ok().body(list);
+        Pageable pageable = PageRequest.of(page, 4);
+        Page<Empresa> list = empresaService.findAll(pageable);
+        return list;
     }
 
     /**

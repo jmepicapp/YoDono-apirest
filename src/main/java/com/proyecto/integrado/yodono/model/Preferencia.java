@@ -1,6 +1,7 @@
 package com.proyecto.integrado.yodono.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 
@@ -24,6 +25,7 @@ public class Preferencia implements Serializable {
     @JsonIgnore
     private Empresa empresa;
 
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToOne
     @MapsId("categoriaProductoId")
     @JoinColumn(name = "categoria_producto_id")

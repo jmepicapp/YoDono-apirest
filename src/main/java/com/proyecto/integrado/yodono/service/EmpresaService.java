@@ -4,6 +4,8 @@ import com.proyecto.integrado.yodono.model.Empresa;
 import com.proyecto.integrado.yodono.model.dto.EmpresaDTO;
 
 import com.proyecto.integrado.yodono.model.dto.EmpresaFrontDTO;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.Optional;
@@ -26,7 +28,7 @@ public interface EmpresaService {
      *
      * @return the list of entities.
      */
-    List<EmpresaDTO> findAll();
+    Page<Empresa> findAll(Pageable pageable);
 
     /**
      * Get the "id" empresa.

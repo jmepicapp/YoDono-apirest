@@ -3,6 +3,7 @@ package com.proyecto.integrado.yodono.service;
 import com.proyecto.integrado.yodono.model.dto.PreferenciaDTO;
 import com.proyecto.integrado.yodono.model.dto.EmpresaDTO;
 import com.proyecto.integrado.yodono.model.Preferencia;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 import java.util.Optional;
