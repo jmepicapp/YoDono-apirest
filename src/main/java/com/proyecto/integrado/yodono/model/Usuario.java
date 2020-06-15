@@ -26,8 +26,8 @@ public class Usuario implements Serializable {
     @Column(name = "activo")
     private Boolean activo;
 
+    @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "rol_id")
     private Rol rol;
 

@@ -25,21 +25,24 @@ public class Empresa implements Serializable {
     @Column(name = "telefono")
     private Integer telefono;
 
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "direccion_id")
-    private Direccion direccion;
+    //@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    //@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    //@JoinColumn(name = "direccion_id")
+    //private Direccion direccion;
+    
+    @Column(name = "poblacion")
+    private String poblacion;
 
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    @OneToMany(mappedBy = "empresa")
+    @OneToMany(mappedBy = "empresa", orphanRemoval = true)
     private List<Preferencia> preferenciasCategoriaProductos = new ArrayList<>();
 
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    @OneToMany(mappedBy = "empresa")
+    @OneToMany(mappedBy = "empresa", orphanRemoval = true)
     private List<Donacion> donacionesEmpresas = new ArrayList<>();
 
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, orphanRemoval = true)
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
 
@@ -77,18 +80,18 @@ public class Empresa implements Serializable {
         this.telefono = telefono;
     }
 
-    public Direccion getDireccion() {
-        return direccion;
-    }
+    //public Direccion getDireccion() {
+    //    return direccion;
+    //}
 
-    public Empresa direccion(Direccion direccion) {
-        this.direccion = direccion;
-        return this;
-    }
+    //public Empresa direccion(Direccion direccion) {
+    //    this.direccion = direccion;
+    //    return this;
+    //}
 
-    public void setDireccion(Direccion direccion) {
-        this.direccion = direccion;
-    }
+    //public void setDireccion(Direccion direccion) {
+    //    this.direccion = direccion;
+    //}
 
     public List<Preferencia> getPreferenciasCategoriaProductos() {
         return preferenciasCategoriaProductos;
@@ -170,10 +173,20 @@ public class Empresa implements Serializable {
                 "id=" + id +
                 ", nombre='" + nombre + '\'' +
                 ", telefono=" + telefono +
-                ", direccion=" + direccion +
+                //", direccion=" + direccion +
                 ", preferenciasCategoriaProductos=" + preferenciasCategoriaProductos +
                 ", donacionEmpresas=" + donacionesEmpresas +
                 ", usuario=" + usuario +
                 '}';
     }
+
+	public String getPoblacion() {
+		return poblacion;
+	}
+
+	public void setPoblacion(String poblacion) {
+		this.poblacion = poblacion;
+	}
+    
+    
 }

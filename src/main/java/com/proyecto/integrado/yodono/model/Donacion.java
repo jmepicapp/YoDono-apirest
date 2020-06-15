@@ -22,8 +22,8 @@ public class Donacion implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "descripcion_empresa")
-    private String descripcionEmpresa;
+    @Column(name = "descripcion")
+    private String descripcion;
 
     @Column(name = "fechaCreacion")
     private LocalDateTime fechaCreacion;
@@ -41,9 +41,9 @@ public class Donacion implements Serializable {
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "donacionesEmpresas"})
     private Empresa empresa;
 
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    @OneToMany(mappedBy = "donacion", cascade = CascadeType.ALL, orphanRemoval = true)
-    List<Producto> listaProducto = new ArrayList<>();
+//    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+//    @OneToMany(mappedBy = "donacion", cascade = CascadeType.ALL, orphanRemoval = true)
+//    List<Producto> listaProducto = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -53,16 +53,12 @@ public class Donacion implements Serializable {
         this.id = id;
     }
 
-    public String getDescripcionEmpresa() {
-        return descripcionEmpresa;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public Donacion descripcionEmpresa(String descripcionEmpresa) {
-        this.descripcionEmpresa = descripcionEmpresa;
-        return this;
-    }
-    public void setDescripcionEmpresa(String descripcionEmpresa) {
-        this.descripcionEmpresa = descripcionEmpresa;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     public LocalDateTime getFechaCreacion() {
@@ -104,7 +100,6 @@ public class Donacion implements Serializable {
     public void setEmpresa(Empresa empresa) {
         this.empresa = empresa;
     }
-    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     public String getEstado() {
         return estado;
@@ -134,12 +129,12 @@ public class Donacion implements Serializable {
     public String toString() {
         return "Donacion{" +
                 "id=" + id +
-                ", descripcionEmpresa='" + descripcionEmpresa + '\'' +
+                ", descripcion='" + descripcion + '\'' +
                 ", fechaCreacion=" + fechaCreacion +
                 ", estado='" + estado + '\'' +
                 ", donante=" + donante +
                 ", empresa=" + empresa +
-                ", listaProducto=" + listaProducto +
+                //", listaProducto=" + listaProducto +
                 '}';
     }
 }

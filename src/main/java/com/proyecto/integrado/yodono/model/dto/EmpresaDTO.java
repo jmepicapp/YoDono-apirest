@@ -5,6 +5,8 @@ import com.proyecto.integrado.yodono.model.Empresa;
 import java.io.Serializable;
 import java.util.Objects;
 
+import javax.persistence.Column;
+
 /**
  * A DTO for the {@link Empresa} entity.
  */
@@ -13,7 +15,8 @@ public class EmpresaDTO implements Serializable {
     private Long id;
     private String nombre;
     private Integer telefono;
-    private DireccionDTO direccion;
+    private String poblacion;
+    //private DireccionDTO direccion;
     private UsuarioDTO usuario;
 
     public Long getId() {
@@ -39,16 +42,24 @@ public class EmpresaDTO implements Serializable {
     public void setTelefono(Integer telefono) {
         this.telefono = telefono;
     }
+    
+    //public DireccionDTO getDireccion() {
+    //    return direccion;
+    //}
 
-    public DireccionDTO getDireccion() {
-        return direccion;
-    }
+    //public void setDireccion(DireccionDTO direccion) {
+    //    this.direccion = direccion;
+    //}
 
-    public void setDireccion(DireccionDTO direccion) {
-        this.direccion = direccion;
-    }
+    public String getPoblacion() {
+		return poblacion;
+	}
 
-    public UsuarioDTO getUsuario() {
+	public void setPoblacion(String poblacion) {
+		this.poblacion = poblacion;
+	}
+
+	public UsuarioDTO getUsuario() {
         return usuario;
     }
 
@@ -83,7 +94,7 @@ public class EmpresaDTO implements Serializable {
                 "id=" + id +
                 ", nombre='" + nombre + '\'' +
                 ", telefono=" + telefono +
-                ", direccion=" + direccion +
+                //", direccion=" + direccion +
                 ", usuario=" + usuario +
                 '}';
     }

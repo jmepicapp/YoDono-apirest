@@ -16,7 +16,7 @@ public interface DonacionRepository extends JpaRepository<Donacion, Long> {
 	@Query(value ="select * from donaciones p where p.donante_id IN "+"(select id from Donantes d where d.id = p.donante_id)",nativeQuery = true)
 	List<Donacion> findAllByIdUsuario(Long idUsuario);
 	
-	@Query(value ="select p from donaciones p where p.estado = 'PENDIENTE'", nativeQuery = true)
+	@Query(value ="select * from donaciones p where p.estado = 'PENDIENTE'", nativeQuery = true)
 	List<Donacion> findAllByEstadoPendiente();
 	
 	@Query(value ="select * from donaciones p where (p.estado = 'CANCELADO' or p.estado = 'ACEPTADO') and p.donante_id IN "+"(select id from Donantes d where d.id = p.donante_id)",nativeQuery = true)

@@ -2,12 +2,16 @@ package com.proyecto.integrado.yodono.service.impl;
 
 import com.proyecto.integrado.yodono.model.Direccion;
 import com.proyecto.integrado.yodono.model.Donante;
+import com.proyecto.integrado.yodono.model.Empresa;
 import com.proyecto.integrado.yodono.model.Rol;
 import com.proyecto.integrado.yodono.model.Usuario;
 import com.proyecto.integrado.yodono.model.dto.DonanteDTO;
 import com.proyecto.integrado.yodono.model.dto.DonanteFrontDTO;
+import com.proyecto.integrado.yodono.model.dto.EmpresaDTO;
 import com.proyecto.integrado.yodono.service.DonanteService;
 import com.proyecto.integrado.yodono.repository.DonanteRepository;
+import com.proyecto.integrado.yodono.repository.RolRepository;
+import com.proyecto.integrado.yodono.repository.UsuarioRepository;
 import com.proyecto.integrado.yodono.util.ModelMapperUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,12 +35,21 @@ public class DonanteServiceImpl implements DonanteService {
 
     @Autowired
     private final DonanteRepository donanteRepository;
-
+    
     @Autowired
-	private BCryptPasswordEncoder passwordEncoder;
+	private final UsuarioRepository usuarioRepository;
 
-    public DonanteServiceImpl(DonanteRepository donanteRepository) {
+	@Autowired
+	private final RolRepository rolRepository;
+	
+	@Autowired
+    private BCryptPasswordEncoder passwordEncoder;
+	
+    public DonanteServiceImpl(DonanteRepository donanteRepository, UsuarioRepository usuarioRepository,
+			RolRepository rolRepository) {
         this.donanteRepository = donanteRepository;
+        this.usuarioRepository = usuarioRepository;
+		this.rolRepository = rolRepository;
     }
 
     /**
@@ -48,6 +61,7 @@ public class DonanteServiceImpl implements DonanteService {
     @Override
     public DonanteDTO save(DonanteFrontDTO donanteFrontDTO) {
         log.debug("Request to save Donante : {}", donanteFrontDTO);
+       
 
         Donante donante = crearDonante(donanteFrontDTO);
         donante.setUsuario(crearUsuario(donanteFrontDTO));
@@ -55,11 +69,29 @@ public class DonanteServiceImpl implements DonanteService {
         donante = donanteRepository.save(donante);
         return ModelMapperUtils.map(donante, DonanteDTO.class);
     }
+    
+    @Override
+	public DonanteDTO update(DonanteDTO donanteDTO) {
+		Donante donanteExists = donanteRepository.getOne(donanteDTO.getId());
+		if (donanteExists != null) {
+			Donante donante = new Donante();
+			donante.setId(donanteDTO.getId());
+			donante.setPoblacion(donanteDTO.getPoblacion());
+			donante.setNombre(donanteDTO.getNombre());
+			donante.setApellidos(donanteDTO.getApellidos());
+			donante.setTelefono(donanteDTO.getTelefono());
+			donante.setUsuario(usuarioRepository.getOne(Long.valueOf(donanteExists.getUsuario().getId())));
+			donante = donanteRepository.save(donante);
+			return ModelMapperUtils.map(donante, DonanteDTO.class);
+		}
+		return null;
+	}
 
     private Donante crearDonante(DonanteFrontDTO donanteFrontDTO) {
         Donante donante = new Donante();
         donante.setApellidos(donanteFrontDTO.getApellidos());
-        donante.setDireccion(ModelMapperUtils.map(donanteFrontDTO.getDireccion(), Direccion.class));
+        //donante.setDireccion(ModelMapperUtils.map(donanteFrontDTO.getDireccion(), Direccion.class));
+        donante.setPoblacion(donanteFrontDTO.getPoblacion());
         donante.setNombre(donanteFrontDTO.getNombre());
         donante.setTelefono(donanteFrontDTO.getTelefono());
         donante.setUsuario(crearUsuario(donanteFrontDTO));
@@ -72,7 +104,7 @@ public class DonanteServiceImpl implements DonanteService {
         usuario.setActivo(true);
         usuario.setEmail(donanteFrontDTO.getEmail());
         usuario.setPassword(passwordEncoder.encode(donanteFrontDTO.getPassword()));
-        usuario.setRol(new Rol(Long.valueOf(2), "ROLE_EMPRESA"));
+		usuario.setRol(rolRepository.getOne(Long.valueOf(3)));
         return usuario;
     }
 

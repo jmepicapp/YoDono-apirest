@@ -22,6 +22,14 @@ public interface EmpresaService {
      * @return the persisted entity.
      */
     EmpresaDTO save(EmpresaFrontDTO empresaFrontDTO);
+    
+    /**
+     * Update a empresa.
+     *
+     * @param empresaFrontDTO the entity to save.
+     * @return the persisted entity.
+     */
+    EmpresaDTO update(EmpresaDTO empresaDTO);
 
     /**
      * Get all the empresas.
@@ -29,6 +37,13 @@ public interface EmpresaService {
      * @return the list of entities.
      */
     Page<Empresa> findAll(Pageable pageable);
+    
+    /**
+     * Get all the empresas by poblacion.
+     *
+     * @return the list of entities.
+     */
+	Page<Empresa> findAllByPoblacion(String poblacion, Pageable pageable);
 
     /**
      * Get the "id" empresa.
@@ -52,4 +67,5 @@ public interface EmpresaService {
      * @param id the id of the entity.
      */
     void delete(Long id);
+
 }

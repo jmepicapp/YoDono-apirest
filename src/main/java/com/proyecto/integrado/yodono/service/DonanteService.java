@@ -19,6 +19,14 @@ public interface DonanteService {
      * @return the persisted entity.
      */
     DonanteDTO save(DonanteFrontDTO donanteFrontDTO);
+    
+    /**
+     * Update a donante.
+     *
+     * @param donanteFrontDTO the entity to save.
+     * @return the persisted entity.
+     */
+	DonanteDTO update(DonanteDTO donanteDTO);
 
     /**
      * Get all the donantes.
@@ -49,4 +57,5 @@ public interface DonanteService {
      * @param id the id of the entity.
      */
     void delete(Long id);
+
 }

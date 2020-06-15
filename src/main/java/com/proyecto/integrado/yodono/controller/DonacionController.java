@@ -55,7 +55,7 @@ public class DonacionController {
         if (donacionDTO.getId() != null) {
             throw new BadRequestAlertException("A new donacion cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        Optional<DonacionDTO> result = Optional.of( donacionService.save(donacionDTO));
+        Optional<DonacionDTO> result = Optional.of(donacionService.save(donacionDTO));
       //  return ResponseEntity.created(new URI("/api/Donacions/" + result.getId())).body(result);
         return result.map(response -> ResponseEntity.ok().body(result.get()))
                 .orElseThrow(() -> new  BadRequestAlertException("Donacion","Ya existe una donacion en curso"));

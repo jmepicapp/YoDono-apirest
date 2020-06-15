@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
 @Component
 public class TaskSchedulers{
     Logger logger = LoggerFactory.getLogger(TaskSchedulers.class);
+    
     @Autowired
     private final DonacionRepository donacionRepository;
     private  static Integer PARAMETRO_HORA_MAXIMA = 48;
@@ -42,7 +43,7 @@ public class TaskSchedulers{
                   .filter(pt ->  HOURS.between(pt.getFechaCreacion(), LocalDateTime.now()) > PARAMETRO_HORA_MAXIMA)
                   .map(donacion -> {
                       donacion.setEstado(EstadoDonacion.CANCELADO.name());
-                      donacion.setDescripcionEmpresa(String.format("La donacion se ha cancelado, no fue aceptada en %s horas",PARAMETRO_HORA_MAXIMA));
+                      donacion.setDescripcion(donacion.getDescripcion() + "\n" +String.format("La donacion se ha cancelado, no fue aceptada en %s horas",PARAMETRO_HORA_MAXIMA));
                       return  donacion;
                   }).map(pt -> donacionRepository.save(pt))
                   .map(pt -> pt.getId())

@@ -3,7 +3,10 @@ package com.proyecto.integrado.yodono.controller;
 import com.proyecto.integrado.yodono.model.Donante;
 import com.proyecto.integrado.yodono.model.dto.DonanteDTO;
 import com.proyecto.integrado.yodono.model.dto.DonanteFrontDTO;
+import com.proyecto.integrado.yodono.model.dto.EmpresaDTO;
+import com.proyecto.integrado.yodono.model.dto.UsuarioDTO;
 import com.proyecto.integrado.yodono.service.DonanteService;
+import com.proyecto.integrado.yodono.service.UsuarioService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,7 +17,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.net.URISyntaxException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -30,9 +35,13 @@ public class DonanteController {
 
     @Autowired
     private final DonanteService donanteService;
+    
+	@Autowired
+	private final UsuarioService usuarioService;
 
-    public DonanteController(DonanteService donanteService) {
+    public DonanteController(DonanteService donanteService, UsuarioService usuarioService) {
         this.donanteService = donanteService;
+		this.usuarioService = usuarioService;
     }
 
     /**
@@ -43,10 +52,22 @@ public class DonanteController {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/donantes")
-    public ResponseEntity<DonanteDTO> createDonante(@RequestBody DonanteFrontDTO donanteFrontDTO) throws URISyntaxException {
+    public ResponseEntity<?> createDonante(@RequestBody DonanteFrontDTO donanteFrontDTO) throws URISyntaxException {
         log.debug("REST request to save Donante : {}", donanteFrontDTO);
-        DonanteDTO result = donanteService.save(donanteFrontDTO);
-        return ResponseEntity.ok().body(result);
+        
+        Map<String, Object> response = new HashMap<>();
+		Optional<UsuarioDTO> usuarioExists = usuarioService.findByUsername(donanteFrontDTO.getEmail());
+		
+		
+		if (usuarioExists.isPresent()) {
+			response.put("mensaje",
+					"El email " + donanteFrontDTO.getEmail() + " ya existe en la base de datos");
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		} else {
+			DonanteDTO result = donanteService.save(donanteFrontDTO);
+	        return ResponseEntity.ok().body(result);
+		}
+        
     }
 
     /**
@@ -59,9 +80,9 @@ public class DonanteController {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/donantes")
-    public ResponseEntity<DonanteDTO> updateDonante(@RequestBody DonanteFrontDTO donanteFrontDTO) throws URISyntaxException {
-        log.debug("REST request to update Donante : {}", donanteFrontDTO);
-        DonanteDTO result = donanteService.save(donanteFrontDTO);
+    public ResponseEntity<DonanteDTO> updateDonante(@RequestBody DonanteDTO donanteDTO) throws URISyntaxException {
+        log.debug("REST request to update Donante : {}", donanteDTO);
+        DonanteDTO result = donanteService.update(donanteDTO);
         return ResponseEntity.ok().body(result);
     }
 
@@ -97,7 +118,7 @@ public class DonanteController {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body thedonanteDTO, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/donantes/email/{emailUsuario}")
-    public ResponseEntity<DonanteDTO> getDonanteByEmailUsuario(@PathVariable String emailUsuario) {
+    public ResponseEntity<DonanteDTO> getDonanteByEmailUsuaxrio(@PathVariable String emailUsuario) {
         log.debug("REST request to get Donante : {}", emailUsuario);
         Optional<DonanteDTO>donanteDTO = donanteService.findByEmailUsuario(emailUsuario);
         return donanteDTO.map(response -> ResponseEntity.ok().body(response))

@@ -2,70 +2,74 @@ package com.proyecto.integrado.yodono.model.dto;
 
 public class EmpresaFrontDTO {
 
-    private Long id;
-    private String nombre;
-    private Integer telefono;
-    private DireccionDTO direccion;
-    private String email;
-    private String password;
+	private Long id;
+	private String nombre;
+	private Integer telefono;
+	private String poblacion;
+	// private DireccionDTO direccion;
+	private String email;
+	private String password;
 
-    public Long getId() {
-        return id;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public String getNombre() {
-        return nombre;
-    }
+	public String getNombre() {
+		return nombre;
+	}
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
 
-    public Integer getTelefono() {
-        return telefono;
-    }
+	public Integer getTelefono() {
+		return telefono;
+	}
 
-    public void setTelefono(Integer telefono) {
-        this.telefono = telefono;
-    }
+	public void setTelefono(Integer telefono) {
+		this.telefono = telefono;
+	}
 
-    public DireccionDTO getDireccion() {
-        return direccion;
-    }
+	// public DireccionDTO getDireccion() {
+	// return direccion;
+	// }
 
-    public void setDireccion(DireccionDTO direccion) {
-        this.direccion = direccion;
-    }
+	// public void setDireccion(DireccionDTO direccion) {
+	// this.direccion = direccion;
+	// }
 
-    public String getEmail() {
-        return email;
-    }
+	public String getPoblacion() {
+		return poblacion;
+	}
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	public void setPoblacion(String poblacion) {
+		this.poblacion = poblacion;
+	}
 
-    public String getPassword() {
-        return password;
-    }
+	public String getEmail() {
+		return email;
+	}
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-    @Override
-    public String toString() {
-        return "EmpresaFrontDTO{" +
-                "id=" + id +
-                ", nombre='" + nombre + '\'' +
-                ", telefono=" + telefono +
-                ", direccion=" + direccion +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                '}';
-    }
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	@Override
+	public String toString() {
+		return "EmpresaFrontDTO{" + "id=" + id + ", nombre='" + nombre + '\'' + ", telefono=" + telefono +
+		// ", direccion=" + direccion +
+				", email='" + email + '\'' + ", password='" + password + '\'' + '}';
+	}
 }

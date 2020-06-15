@@ -61,7 +61,11 @@ public class UsuarioServiceImpl implements UserDetailsService, UsuarioService {
     @Transactional(readOnly = true)
     public Optional<UsuarioDTO> findByUsername(String email) {
         log.debug("Request to get Usuario : {}", email);
-        return Optional.of(ModelMapperUtils.map(usuarioRepository.findByEmail(email).get(), UsuarioDTO.class));
+        if(usuarioRepository.findByEmail(email).isPresent()) {
+            return Optional.of(ModelMapperUtils.map(usuarioRepository.findByEmail(email).get(), UsuarioDTO.class));
+        }else {
+        	return Optional.empty();
+        }
 
     }
 }

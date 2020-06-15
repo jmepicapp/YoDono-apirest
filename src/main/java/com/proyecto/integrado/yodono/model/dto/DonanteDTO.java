@@ -14,7 +14,8 @@ public class DonanteDTO implements Serializable {
     private String nombre;
     private String apellidos;
     private Integer telefono;
-    private DireccionDTO direccion;
+    private String poblacion;
+    //private DireccionDTO direccion;
     private UsuarioDTO usuario;
 
     public Long getId() {
@@ -56,14 +57,22 @@ public class DonanteDTO implements Serializable {
     public void setUsuario(UsuarioDTO usuario) {
         this.usuario = usuario;
     }
+    
+    public String getPoblacion() {
+		return poblacion;
+	}
 
-    public DireccionDTO getDireccion() {
-        return direccion;
-    }
+	public void setPoblacion(String poblacion) {
+		this.poblacion = poblacion;
+	}
 
-    public void setDireccion(DireccionDTO direccion) {
-        this.direccion = direccion;
-    }
+    //public DireccionDTO getDireccion() {
+    //    return direccion;
+    //}
+
+    //public void setDireccion(DireccionDTO direccion) {
+    //    this.direccion = direccion;
+    //}
 
     @Override
     public boolean equals(Object o) {
@@ -93,7 +102,7 @@ public class DonanteDTO implements Serializable {
                 ", nombre='" + nombre + '\'' +
                 ", apellidos='" + apellidos + '\'' +
                 ", telefono=" + telefono +
-                ", direccion=" + direccion +
+                //", direccion=" + direccion +
                 ", usuarioDTO=" + usuario +
                 '}';
     }

@@ -31,17 +31,20 @@ public class Donante implements Serializable {
     @Column(name = "telefono")
     private Integer telefono;
 
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "direccion_id")
-    private Direccion direccion;
+    //@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    //@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    //@JoinColumn(name = "direccion_id")
+    //private Direccion direccion;
+    
+    @Column(name = "poblacion")
+    private String poblacion;
 
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    @OneToMany(mappedBy = "donante")
+    @OneToMany(mappedBy = "donante", orphanRemoval = true)
     private List<Donacion> donacionesDonantes = new ArrayList<>();
 
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, orphanRemoval = true)
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
 
@@ -92,18 +95,18 @@ public class Donante implements Serializable {
         this.telefono = telefono;
     }
 
-    public Direccion getDireccion() {
-        return direccion;
-    }
+    //public Direccion getDireccion() {
+    //   return direccion;
+    //}
 
-    public Donante direccion(Direccion direccion) {
-        this.direccion = direccion;
-        return this;
-    }
+    //public Donante direccion(Direccion direccion) {
+    //    this.direccion = direccion;
+    //    return this;
+    //}
 
-    public void setDireccion(Direccion direccion) {
-        this.direccion = direccion;
-    }
+    //public void setDireccion(Direccion direccion) {
+    //    this.direccion = direccion;
+    //}
 
 
     public List<Donacion> getDonacionDonantes() {
@@ -162,9 +165,17 @@ public class Donante implements Serializable {
                 ", nombre='" + nombre + '\'' +
                 ", apellidos='" + apellidos + '\'' +
                 ", telefono=" + telefono +
-                ", direccion=" + direccion +
+                //", direccion=" + direccion +
                 ", donacionesDonantes=" + donacionesDonantes +
                 ", usuario=" + usuario +
                 '}';
     }
+    
+    public String getPoblacion() {
+		return poblacion;
+	}
+
+	public void setPoblacion(String poblacion) {
+		this.poblacion = poblacion;
+	}
 }

@@ -52,7 +52,7 @@ public class DonacionServiceImpl implements DonacionService {
     }
 
     private boolean validarDonacion(DonacionDTO donacionDTO) {
-       Long numeroDonacion =  donacionRepository.findAll()
+       Long numeroDonacion = donacionRepository.findAll()
                 .stream()
                 .filter(donacion -> donacion.getDonante().getId().equals(donacionDTO.getDonante().getId()))
                 .filter(donacion -> donacion.getEmpresa().getId().equals(donacionDTO.getEmpresa().getId()))

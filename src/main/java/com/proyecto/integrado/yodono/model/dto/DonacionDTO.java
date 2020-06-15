@@ -13,12 +13,12 @@ import java.util.Objects;
 public class DonacionDTO implements Serializable {
     
     private Long id;
-    private String descripcionEmpresa;
+    private String descripcion;
     private LocalDateTime fechaCreacion;
     private DonanteDTO donante;
     private EmpresaDTO empresa;
     private String estado;
-    private List<ProductoDTO> productos;
+//    private List<ProductoDTO> productos;
 
     public Long getId() {
         return id;
@@ -28,12 +28,12 @@ public class DonacionDTO implements Serializable {
         this.id = id;
     }
 
-    public String getDescripcionEmpresa() {
-        return descripcionEmpresa;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setDescripcionEmpresa(String descripcionEmpresa) {
-        this.descripcionEmpresa = descripcionEmpresa;
+    public void setDescripcio(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     public LocalDateTime getFechaCreacion() {
@@ -68,13 +68,13 @@ public class DonacionDTO implements Serializable {
         this.empresa = empresa;
     }
 
-    public List<ProductoDTO> getProductos() {
-        return productos;
-    }
-
-    public void setProductos(List<ProductoDTO> productos) {
-        this.productos = productos;
-    }
+//    public List<ProductoDTO> getProductos() {
+//        return productos;
+//    }
+//
+//    public void setProductos(List<ProductoDTO> productos) {
+//        this.productos = productos;
+//    }
 
     @Override
     public boolean equals(Object o) {
@@ -101,12 +101,12 @@ public class DonacionDTO implements Serializable {
     public String toString() {
         return "DonacionDTO{" +
                 "id=" + id +
-                ", descripcionEmpresa='" + descripcionEmpresa + '\'' +
+                ", descripcion='" + descripcion + '\'' +
                 ", fechaCreacion=" + fechaCreacion +
                 ", donante=" + donante +
                 ", empresa=" + empresa +
                 ", estado='" + estado + '\'' +
-                ", productos=" + productos +
+                //", productos=" + productos +
                 '}';
     }
 }

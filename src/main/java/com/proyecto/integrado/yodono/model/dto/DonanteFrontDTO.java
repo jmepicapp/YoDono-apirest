@@ -5,7 +5,8 @@ public class DonanteFrontDTO {
     private String nombre;
     private String apellidos;
     private Integer telefono;
-    private DireccionDTO direccion;
+    private String poblacion;
+    //private DireccionDTO direccion;
     private String email;
     private String password;
 
@@ -32,14 +33,22 @@ public class DonanteFrontDTO {
     public void setTelefono(Integer telefono) {
         this.telefono = telefono;
     }
+    
+    public String getPoblacion() {
+		return poblacion;
+	}
 
-    public DireccionDTO getDireccion() {
-        return direccion;
-    }
+	public void setPoblacion(String poblacion) {
+		this.poblacion = poblacion;
+	}
 
-    public void setDireccion(DireccionDTO direccion) {
-        this.direccion = direccion;
-    }
+    //public DireccionDTO getDireccion() {
+    //    return direccion;
+    //}
+
+    //public void setDireccion(DireccionDTO direccion) {
+    //    this.direccion = direccion;
+    //}
 
     public String getEmail() {
         return email;
@@ -63,7 +72,7 @@ public class DonanteFrontDTO {
                 "nombre='" + nombre + '\'' +
                 ", apellidos='" + apellidos + '\'' +
                 ", telefono=" + telefono +
-                ", direccion=" + direccion +
+                //", direccion=" + direccion +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 '}';
