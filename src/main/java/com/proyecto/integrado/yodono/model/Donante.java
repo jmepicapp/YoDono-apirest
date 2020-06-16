@@ -166,7 +166,6 @@ public class Donante implements Serializable {
                 ", apellidos='" + apellidos + '\'' +
                 ", telefono=" + telefono +
                 //", direccion=" + direccion +
-                ", donacionesDonantes=" + donacionesDonantes +
                 ", usuario=" + usuario +
                 '}';
     }

@@ -175,7 +175,6 @@ public class Empresa implements Serializable {
                 ", telefono=" + telefono +
                 //", direccion=" + direccion +
                 ", preferenciasCategoriaProductos=" + preferenciasCategoriaProductos +
-                ", donacionEmpresas=" + donacionesEmpresas +
                 ", usuario=" + usuario +
                 '}';
     }

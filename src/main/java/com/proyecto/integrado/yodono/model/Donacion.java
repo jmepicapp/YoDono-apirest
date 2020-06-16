@@ -132,8 +132,8 @@ public class Donacion implements Serializable {
                 ", descripcion='" + descripcion + '\'' +
                 ", fechaCreacion=" + fechaCreacion +
                 ", estado='" + estado + '\'' +
-                ", donante=" + donante +
-                ", empresa=" + empresa +
+                //", donante=" + donante +
+                //", empresa=" + empresa +
                 //", listaProducto=" + listaProducto +
                 '}';
     }

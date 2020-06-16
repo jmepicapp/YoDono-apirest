@@ -32,7 +32,7 @@ public class DonacionDTO implements Serializable {
         return descripcion;
     }
 
-    public void setDescripcio(String descripcion) {
+    public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
 

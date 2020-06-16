@@ -107,7 +107,6 @@ public class Preferencia implements Serializable {
     public String toString() {
         return "Preferencia{" +
                 "id=" + id +
-                ", empresa=" + empresa +
                 ", categoriaProducto=" + categoriaProducto +
                 ", exclusion=" + exclusion +
                 '}';

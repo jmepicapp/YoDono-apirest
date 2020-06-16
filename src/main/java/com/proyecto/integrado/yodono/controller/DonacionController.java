@@ -1,7 +1,9 @@
 package com.proyecto.integrado.yodono.controller;
 
 import java.net.URISyntaxException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import com.proyecto.integrado.yodono.controller.error.BadRequestAlertException;
@@ -23,6 +25,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.proyecto.integrado.yodono.service.DonacionService;
+
+import javax.swing.text.html.Option;
 
 /**
  * REST controller for managing {@link Donacion}.
@@ -50,13 +54,21 @@ public class DonacionController {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/donacion")
-    public ResponseEntity<DonacionDTO> createDonacion(@RequestBody DonacionDTO donacionDTO) throws URISyntaxException {
+    public ResponseEntity<?> createDonacion(@RequestBody DonacionDTO donacionDTO) throws URISyntaxException {
         log.debug("REST request to save Donacion : {}", donacionDTO);
         if (donacionDTO.getId() != null) {
             throw new BadRequestAlertException("A new donacion cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        Optional<DonacionDTO> result = Optional.of(donacionService.save(donacionDTO));
-      //  return ResponseEntity.created(new URI("/api/Donacions/" + result.getId())).body(result);
+        DonacionDTO donacionDTOresult = donacionService.save(donacionDTO);
+        if (donacionDTOresult == null){
+            Map<String, Object> response = new HashMap<>();
+
+            response.put("mensaje",
+                    "Ya existe una solicitud de donación pendiente de aprobación con esta empresa");
+            return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        Optional<DonacionDTO> result = Optional.of(donacionDTOresult);
+        //  return ResponseEntity.created(new URI("/api/Donacions/" + result.getId())).body(result);
         return result.map(response -> ResponseEntity.ok().body(result.get()))
                 .orElseThrow(() -> new  BadRequestAlertException("Donacion","Ya existe una donacion en curso"));
     }

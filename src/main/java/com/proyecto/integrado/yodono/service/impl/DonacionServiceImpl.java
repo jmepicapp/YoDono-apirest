@@ -1,6 +1,8 @@
 package com.proyecto.integrado.yodono.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import com.proyecto.integrado.yodono.controller.error.BadRequestAlertException;
@@ -42,8 +44,10 @@ public class DonacionServiceImpl implements DonacionService {
     @Override
     public DonacionDTO save(DonacionDTO donacionDTO) {
         log.debug("Request to save Donacion : {}", donacionDTO);
+        Map<String, Object> response = new HashMap<>();
+
         if(validarDonacion(donacionDTO)){
-            throw new BadRequestAlertException("Donacion","Ya existe una donacion en curso");
+            return null;
         }
         Donacion donacion = ModelMapperUtils.map(donacionDTO, Donacion.class);
         donacion.setEstado(EstadoDonacion.PENDIENTE.name());
