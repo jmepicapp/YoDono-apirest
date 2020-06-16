@@ -7,6 +7,7 @@ import java.util.Optional;
 
 import com.proyecto.integrado.yodono.controller.error.BadRequestAlertException;
 import com.proyecto.integrado.yodono.model.Donacion;
+import com.proyecto.integrado.yodono.model.Empresa;
 import com.proyecto.integrado.yodono.model.dto.DonacionDTO;
 import com.proyecto.integrado.yodono.repository.DonacionRepository;
 import com.proyecto.integrado.yodono.util.ModelMapperUtils;
@@ -14,6 +15,8 @@ import com.proyecto.integrado.yodono.model.type.EstadoDonacion;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -46,23 +49,31 @@ public class DonacionServiceImpl implements DonacionService {
         log.debug("Request to save Donacion : {}", donacionDTO);
         Map<String, Object> response = new HashMap<>();
 
-        if(validarDonacion(donacionDTO)){
-            return null;
+        if(donacionDTO.getId() != null || !validarDonacion(donacionDTO)){
+            Donacion donacion = ModelMapperUtils.map(donacionDTO, Donacion.class);
+            if (donacionDTO.getEstado() == null){
+                donacion.setEstado(EstadoDonacion.PENDIENTE.name());
+            }else{
+                donacion.setEstado(donacionDTO.getEstado());
+            }
+            donacion = donacionRepository.save(donacion);
+            return ModelMapperUtils.map(donacion, DonacionDTO.class);
         }
-        Donacion donacion = ModelMapperUtils.map(donacionDTO, Donacion.class);
-        donacion.setEstado(EstadoDonacion.PENDIENTE.name());
-        donacion = donacionRepository.save(donacion);
-        return ModelMapperUtils.map(donacion, DonacionDTO.class);
+        return null;
+
     }
 
     private boolean validarDonacion(DonacionDTO donacionDTO) {
-       Long numeroDonacion = donacionRepository.findAll()
-                .stream()
-                .filter(donacion -> donacion.getDonante().getId().equals(donacionDTO.getDonante().getId()))
-                .filter(donacion -> donacion.getEmpresa().getId().equals(donacionDTO.getEmpresa().getId()))
-                .filter(donacion -> EstadoDonacion.PENDIENTE.name().equals(donacion.getEstado()))
-                .count();
-        return numeroDonacion >= 1;
+        if (!donacionRepository.findAll().isEmpty()){
+            Long numeroDonacion = donacionRepository.findAll()
+                    .stream()
+                    .filter(donacion -> donacion.getDonante().getId().equals(donacionDTO.getDonante().getId()))
+                    .filter(donacion -> donacion.getEmpresa().getId().equals(donacionDTO.getEmpresa().getId()))
+                    .filter(donacion -> EstadoDonacion.PENDIENTE.name().equals(donacion.getEstado()))
+                    .count();
+            return numeroDonacion >= 1;
+        }
+       return false;
     }
 
     /**
@@ -157,5 +168,31 @@ public class DonacionServiceImpl implements DonacionService {
 	public List<DonacionDTO> findAllByIdEmpresaEstadoPendiente(Long idUsuario) {
         return ModelMapperUtils.mapAll(this.donacionRepository.findAllByIdDonanteEstadoPendiente(idUsuario), DonacionDTO.class);
 	}
+
+    /**
+     * Get all the donaciones by donante.
+     *
+     * @return the list of entities.
+     */
+    @Override
+    @Transactional(readOnly = true)
+    public Page<Donacion> findAllByIdDonante(Long idDonante, Pageable pageable) {
+        log.debug("Request to get all Empresas");
+        return donacionRepository.findAllByIdDonante(idDonante, pageable);
+
+    }
+
+    /**
+     * Get all the donaciones by empresas.
+     *
+     * @return the list of entities.
+     */
+    @Override
+    @Transactional(readOnly = true)
+    public Page<Donacion> findAllByIdEmpresa(Long idEmpresa, Pageable pageable) {
+        log.debug("Request to get all Empresas");
+        return donacionRepository.findAllByIdEmpresa(idEmpresa, pageable);
+
+    }
 
 }

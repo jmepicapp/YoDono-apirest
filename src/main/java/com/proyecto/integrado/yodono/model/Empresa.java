@@ -1,5 +1,6 @@
 package com.proyecto.integrado.yodono.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
@@ -37,8 +38,9 @@ public class Empresa implements Serializable {
     @OneToMany(mappedBy = "empresa", orphanRemoval = true)
     private List<Preferencia> preferenciasCategoriaProductos = new ArrayList<>();
 
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    @OneToMany(mappedBy = "empresa", orphanRemoval = true)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "donacionesEmpresas"})
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "empresa", orphanRemoval = true)
     private List<Donacion> donacionesEmpresas = new ArrayList<>();
 
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})

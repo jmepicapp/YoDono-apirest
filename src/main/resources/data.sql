@@ -7,7 +7,7 @@ INSERT INTO USUARIOS (id, email, password, activo, rol_id) values
 (4, 'reto@reto.com', '$2a$10$gWVyDQoykSMPf8wp.7jBwOvklMd.TlhCXnK43erHjJzrxEMN6eGRW', 1, 2),
 (5, 'pepe@gmail.com', '$2a$10$dTwLqF4JeQXcHTeZXfBe5O63LlrWpIeJLBVSwyIYCmOaIsVqeQyJy', 1, 3);
 
-INSERT INTO DONANTES (ID, NOMBRE, USUARIO_ID) VALUES (1, 'PEPE', 5);
+INSERT INTO DONANTES (ID, NOMBRE, APELLIDOS, USUARIO_ID, POBLACION) VALUES (1, 'PEPE', 'SÁNCHEZ', 5, 'Utrera');
 
 INSERT INTO EMPRESAS (ID, NOMBRE, USUARIO_ID, POBLACION) VALUES (1, 'CARITAS', 3, 'Barcelona'), (2, 'RETO', 4, 'Sevilla'), (3, 'ONU', 2, 'Madrid');
 

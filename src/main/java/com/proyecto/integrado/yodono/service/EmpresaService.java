@@ -26,7 +26,7 @@ public interface EmpresaService {
     /**
      * Update a empresa.
      *
-     * @param empresaFrontDTO the entity to save.
+     * @param empresaDTO the entity to save.
      * @return the persisted entity.
      */
     EmpresaDTO update(EmpresaDTO empresaDTO);

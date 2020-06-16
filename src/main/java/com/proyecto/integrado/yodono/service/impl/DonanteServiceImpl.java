@@ -61,11 +61,7 @@ public class DonanteServiceImpl implements DonanteService {
     @Override
     public DonanteDTO save(DonanteFrontDTO donanteFrontDTO) {
         log.debug("Request to save Donante : {}", donanteFrontDTO);
-       
-
         Donante donante = crearDonante(donanteFrontDTO);
-        donante.setUsuario(crearUsuario(donanteFrontDTO));
-
         donante = donanteRepository.save(donante);
         return ModelMapperUtils.map(donante, DonanteDTO.class);
     }
@@ -105,6 +101,7 @@ public class DonanteServiceImpl implements DonanteService {
         usuario.setEmail(donanteFrontDTO.getEmail());
         usuario.setPassword(passwordEncoder.encode(donanteFrontDTO.getPassword()));
 		usuario.setRol(rolRepository.getOne(Long.valueOf(3)));
+		usuarioRepository.save(usuario);
         return usuario;
     }
 

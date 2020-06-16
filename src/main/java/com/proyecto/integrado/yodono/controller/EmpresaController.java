@@ -83,7 +83,7 @@ public class EmpresaController {
 	/**
 	 * {@code PUT  /empresas} : Updates an existing empresa.
 	 *
-	 * @param empresaFrontDTO the empresaDTO to update.
+	 * @param empresaDTO the empresaDTO to update.
 	 * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body
 	 *         the updated empresaDTO, or with status {@code 400 (Bad Request)} if
 	 *         the empresaDTO is not valid, or with status
@@ -101,14 +101,14 @@ public class EmpresaController {
 	/**
 	 * {@code GET  /empresas/page/:page} : get all the empresas.
 	 *
-	 * @param pageable the pagination information.
+	 * @param page the pagination information.
 	 * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list
 	 *         of empresas in body.
 	 */
 	@GetMapping("/empresas/page/{page}")
 	public Page<Empresa> getAllEmpresas(@PathVariable Integer page) {
 		log.debug("REST request to get a page of empresas");
-		Pageable pageable = PageRequest.of(page, 4);
+		Pageable pageable = PageRequest.of(page, 8);
 		Page<Empresa> list = empresaService.findAll(pageable);
 		return list;
 	}
@@ -116,14 +116,14 @@ public class EmpresaController {
 	/**
 	 * {@code GET  /empresas/page/:page} : get all the empresas.
 	 *
-	 * @param pageable the pagination information.
+	 * @param page the pagination information.
 	 * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list
 	 *         of empresas in body.
 	 */
 	@GetMapping("/empresas/{poblacion}/page/{page}")
 	public Page<Empresa> getAllEmpresasByPoblacion(@PathVariable String poblacion, @PathVariable Integer page) {
 		log.debug("REST request to get a page of empresas by poblacion");
-		Pageable pageable = PageRequest.of(page, 4);
+		Pageable pageable = PageRequest.of(page, 8);
 		Page<Empresa> list = empresaService.findAllByPoblacion(poblacion, pageable);
 		return list;
 	}

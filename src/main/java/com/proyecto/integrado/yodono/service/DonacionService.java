@@ -5,6 +5,8 @@ import java.util.Optional;
 
 import com.proyecto.integrado.yodono.model.dto.DonacionDTO;
 import com.proyecto.integrado.yodono.model.Donacion;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 /**
  * Service Interface for managing {@link Donacion}.
@@ -80,4 +82,20 @@ public interface DonacionService {
      * @return the list of entities.
      */
 	List<DonacionDTO> findAllByIdEmpresaEstadoPendiente(Long idUsuario);
+
+    /**
+     * Get donaciones by Donante.
+     *
+     * @param idDonante the usuario id
+     * @return the list of entities.
+     */
+    Page<Donacion> findAllByIdDonante(Long idDonante, Pageable pageable);
+
+    /**
+     * Get donaciones by Empresa.
+     *
+     * @param idEmpresa the usuario id
+     * @return the list of entities.
+     */
+    Page<Donacion> findAllByIdEmpresa(Long idEmpresa, Pageable pageable);
 }

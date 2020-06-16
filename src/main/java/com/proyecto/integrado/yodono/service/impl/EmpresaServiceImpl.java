@@ -59,10 +59,7 @@ public class EmpresaServiceImpl implements EmpresaService {
 	@Override
 	public EmpresaDTO save(EmpresaFrontDTO empresaFrontDTO) {
 		log.debug("Request to save Empresa : {}", empresaFrontDTO);
-
 		Empresa empresa = crearEmpresa(empresaFrontDTO);
-		empresa.setUsuario(crearUsuario(empresaFrontDTO));
-
 		empresa = empresaRepository.save(empresa);
 		return ModelMapperUtils.map(empresa, EmpresaDTO.class);
 
@@ -103,6 +100,7 @@ public class EmpresaServiceImpl implements EmpresaService {
 		usuario.setEmail(empresaFrontDTO.getEmail());
 		usuario.setPassword(passwordEncoder.encode(empresaFrontDTO.getPassword()));
 		usuario.setRol(rolRepository.getOne(Long.valueOf(2)));
+		usuarioRepository.save(usuario);
 		return usuario;
 	}
 

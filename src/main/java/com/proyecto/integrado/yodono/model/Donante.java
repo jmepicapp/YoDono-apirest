@@ -1,5 +1,6 @@
 package com.proyecto.integrado.yodono.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
@@ -39,8 +40,9 @@ public class Donante implements Serializable {
     @Column(name = "poblacion")
     private String poblacion;
 
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    @OneToMany(mappedBy = "donante", orphanRemoval = true)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "donacionesDonantes"})
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "donante", orphanRemoval = true)
     private List<Donacion> donacionesDonantes = new ArrayList<>();
 
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})

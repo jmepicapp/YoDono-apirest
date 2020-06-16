@@ -31,12 +31,12 @@ public class Donacion implements Serializable {
     @Column(name = "estado")
     private String estado;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "donante_id")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "donacionesDonantes"})
     private Donante donante;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "empresa_id")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "donacionesEmpresas"})
     private Empresa empresa;

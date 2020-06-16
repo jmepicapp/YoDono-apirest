@@ -3,6 +3,8 @@ package com.proyecto.integrado.yodono.repository;
 import java.util.List;
 
 import com.proyecto.integrado.yodono.model.Donacion;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -30,5 +32,11 @@ public interface DonacionRepository extends JpaRepository<Donacion, Long> {
 	
 	@Query(value ="select * from donaciones p where p.estado = 'PENDIENTE' and p.empresa_id IN "+"(select id from Empresas e where ue.id = p.empresa_id)",nativeQuery = true)
 	List<Donacion> findAllByIdEmpresaEstadoPendiente(Long idUsuario);
+
+	@Query(value ="select * from donaciones p where p.donante_id = ?1",nativeQuery = true)
+	Page<Donacion> findAllByIdDonante(Long idDonante, Pageable page);
+
+	@Query(value ="select * from donaciones p where p.empresa_id = ?1",nativeQuery = true)
+	Page<Donacion> findAllByIdEmpresa(Long idEmpresa, Pageable page);
 	
 };

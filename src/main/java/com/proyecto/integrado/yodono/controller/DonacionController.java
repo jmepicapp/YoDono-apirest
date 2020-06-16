@@ -8,10 +8,16 @@ import java.util.Optional;
 
 import com.proyecto.integrado.yodono.controller.error.BadRequestAlertException;
 import com.proyecto.integrado.yodono.model.Donacion;
+import com.proyecto.integrado.yodono.model.Empresa;
 import com.proyecto.integrado.yodono.model.dto.DonacionDTO;
+import com.proyecto.integrado.yodono.util.ModelMapperUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -108,10 +114,44 @@ public class DonacionController {
      *
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of donaciones by idUsuario in body.
      */
-    @GetMapping("/Donacions/{idUsuario}")
+    @GetMapping("/Donacion/{idUsuario}")
     public List<DonacionDTO> getAllDonacions(@PathVariable Long idUsuario) {
         log.debug("REST request to get all Preferencias");
         return donacionService.findAllByIdUsuario(idUsuario);
+    }
+
+    /**
+     * {@code GET  /empresas/:idDonante/page/:page} : get all the donaciones.
+     *
+     * @param page the pagination information.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list
+     *         of empresas in body.
+     */
+    @GetMapping("/donacion/donante/{idDonante}/page/{page}")
+    public Page<DonacionDTO> getAllDonacionsByDonante(@PathVariable Long idDonante, @PathVariable Integer page) {
+        log.debug("REST request to get a page of empresas by poblacion");
+        Pageable pageable = PageRequest.of(page, 8);
+        Page<Donacion> list = donacionService.findAllByIdDonante(idDonante, pageable);
+        List<DonacionDTO> listDTO = ModelMapperUtils.mapAll(list.getContent(), DonacionDTO.class);
+        Page<DonacionDTO> pageDTO = new PageImpl<DonacionDTO>(listDTO);
+        return pageDTO;
+    }
+
+    /**
+     * {@code GET  /empresas/:idEmpresa/page/:page} : get all the donaciones.
+     *
+     * @param page the pagination information.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list
+     *         of empresas in body.
+     */
+    @GetMapping("/donacion/empresa/{idEmpresa}/page/{page}")
+    public Page<DonacionDTO> getAllDonacionsByEmpresa(@PathVariable Long idEmpresa, @PathVariable Integer page) {
+        log.debug("REST request to get a page of empresas by poblacion");
+        Pageable pageable = PageRequest.of(page, 8);
+        Page<Donacion> list = donacionService.findAllByIdEmpresa(idEmpresa, pageable);
+        List<DonacionDTO> listDTO = ModelMapperUtils.mapAll(list.getContent(), DonacionDTO.class);
+        Page<DonacionDTO> pageDTO = new PageImpl<DonacionDTO>(listDTO);
+        return pageDTO;
     }
     
     /**
@@ -149,7 +189,7 @@ public class DonacionController {
      *
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of donaciones by idUsuario in body.
      */
-    @GetMapping("/pendant-Donacions/{idEmpresa}")
+    @GetMapping("/pendant-Donacion/{idEmpresa}")
     public ResponseEntity<List<DonacionDTO>> getEmpresaPendantDonacions(@PathVariable Long idEmpresa) {
         log.debug("REST request to get all Preferencias");
         return ResponseEntity.ok().body(donacionService.findAllByIdEmpresaEstadoPendiente(idEmpresa));
